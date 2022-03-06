@@ -1,0 +1,178 @@
+\documentclass[a4paper]{scrreprt}
+
+% Uncomment to optimize for double-sided printing.
+% \KOMAoptions{twoside}
+
+% Set binding correction manually, if known.
+% \KOMAoptions{BCOR=2cm}
+
+% Localization options
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% Sub figures
+\usepackage{subcaption}
+
+% Quotations
+\usepackage{dirtytalk}
+
+% Floats
+\usepackage{float}
+
+% Enhanced verbatim sections. We're mainly interested in
+% \verbatiminput though.
+\usepackage{verbatim}
+
+% Automatically remove leading whitespace in lstlisting
+\usepackage{lstautogobble}
+
+% CSV to tables
+\usepackage{csvsimple}
+
+% PDF-compatible landscape mode.
+% Makes PDF viewers show the page rotated by 90°.
+\usepackage{pdflscape}
+
+% Advanced tables
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+
+% Fancy tablerules
+\usepackage{booktabs}
+
+% Graphics
+\usepackage{graphicx}
+
+% Current time
+\usepackage[useregional=numeric]{datetime2}
+
+% Float barriers.
+% Automatically add a FloatBarrier to each \section
+\usepackage[section]{placeins}
+
+% Custom header and footer
+\usepackage{fancyhdr}
+
+\usepackage{geometry}
+\usepackage{layout}
+
+% Math tools
+\usepackage{mathtools}
+% Math symbols
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+% General symbols
+\usepackage{stmaryrd}
+
+% Utilities for quotations
+\usepackage{csquotes}
+
+% Bibliography
+\usepackage[
+  style=alphabetic,
+  backend=biber, % Default backend, just listed for completness
+  sorting=ynt % Sort by year, name, title
+]{biblatex}
+\addbibresource{references.bib}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+% Bullet point
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+
+\pagestyle{plain}
+% \fancyhf{}
+% \lhead{}
+% \lfoot{}
+% \rfoot{}
+% 
+% Source code & highlighting
+\usepackage{listings}
+
+% SI units
+\usepackage[binary-units=true]{siunitx}
+\DeclareSIUnit\cycles{cycles}
+
+\newcommand{\lecture}{446538 - Algorithmen in der Algebra}
+\newcommand{\series}{2}
+% Convenience commands
+\newcommand{\mailsubject}{\lecture - Series \series}
+\newcommand{\maillink}[1]{\href{mailto:#1?subject=\mailsubject}
+                               {#1}}
+
+% Should use this command wherever the print date is mentioned.
+\newcommand{\printdate}{\today}
+
+\subject{\lecture}
+\title{Series \series}
+
+\author{Michael Senn \maillink{michael.senn@students.unibe.ch} --- 16-126-880}
+
+\date{\printdate}
+
+% Needs to be the last command in the preamble, for one reason or
+% another. 
+\usepackage{hyperref}
+
+\begin{document}
+\maketitle
+
+
+\setcounter{chapter}{\numexpr \series - 1 \relax}
+
+\chapter{Series \series}
+
+\section{Extended euclidean algorithm}
+
+\section{Solving $x^2 = 1$ in ring of integers modulo $n = pq$}
+
+Given $n = pq$ where $p, q$ are prime, we intend to solve $x^2 = 1$ in
+$\mathbb{Z} / n\mathbb{Z}$. First note that:
+\begin{align*}
+		x^2 = 1 \pmod{pq} \Leftrightarrow x \equiv 1 \pmod{pq} \lor x \equiv (-1) \pmod {pq}
+\end{align*}
+
+We can solve these equivalence relations by means of the CRT, by instead
+solving and recombining the following four sets of equivalence relations:
+\begin{align*}
+		x & \equiv 1 & \pmod{p} \\
+		x & \equiv 1 & \pmod{q} \\
+		\\
+		x & \equiv 1 & \pmod{p} \\
+		x & \equiv (-1) \equiv q-1 & \pmod{q} \\
+		\\
+		x & \equiv (-1) \equiv p-1 & \pmod{p} \\
+		x & \equiv 1 & \pmod{q} \\
+		\\
+		x & \equiv (-1) \equiv p-1 & \pmod{p} \\
+		x & \equiv (-1) \equiv q-1 & \pmod{q}
+\end{align*}
+
+Given $p = 101$, $q = 97$ we will first use Bézout's identity to find integers
+$m_1, m_2$ such that:
+\begin{align*}
+		m_1 p + m_2 q = gcd(p, q)
+\end{align*}
+
+Using the extended euclidean algorithm, one finds $m_1 = -24$, $m_2 = 25$.
+Indeed $-24 \cdot 101 + 25 \cdot 97 = 1$.
+
+Then, by the CRT, solutions for $x$ can be found as $x = a_1 m_2 q + a_2 m_1 p$,
+where $a_1$ is the residue $\bmod p$, $a_2$ the residue $\bmod q$. Thus:
+\begin{align*}
+		1 \cdot 25 \cdot 97 + 1 \cdot -24 \cdot 101 & = 1 \\
+		1 \cdot 25 \cdot 97 + 96 \cdot -24 \cdot 101 = -230279 & \equiv 4849 \pmod{pq} \\
+		100 \cdot 25 \cdot 97 + 1 \cdot -24 \cdot 101 = 240076 & \equiv 4948 \pmod {pq} \\
+		100 \cdot 25 \cdot 97 + 96 \cdot -24 \cdot 101 & = 9796
+\end{align*}
+
+Which are the four solutions to $x^2 = 1$ in $\mathbb{Z} / pq \mathbb{Z}$.
+
+\section{Implementation of ffficient modular exponentiation and Miller-Rabin primality test}
+
+Handed in separately.
+
+\end{document}
