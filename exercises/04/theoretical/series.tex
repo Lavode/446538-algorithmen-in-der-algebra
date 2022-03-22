@@ -1,0 +1,220 @@
+\documentclass[a4paper]{scrreprt}
+
+% Uncomment to optimize for double-sided printing.
+% \KOMAoptions{twoside}
+
+% Set binding correction manually, if known.
+% \KOMAoptions{BCOR=2cm}
+
+% Localization options
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% Sub figures
+\usepackage{subcaption}
+
+\usepackage{algpseudocode}
+
+% Quotations
+\usepackage{dirtytalk}
+
+% Floats
+\usepackage{float}
+
+% Enhanced verbatim sections. We're mainly interested in
+% \verbatiminput though.
+\usepackage{verbatim}
+
+% Automatically remove leading whitespace in lstlisting
+\usepackage{lstautogobble}
+
+% CSV to tables
+\usepackage{csvsimple}
+
+% PDF-compatible landscape mode.
+% Makes PDF viewers show the page rotated by 90°.
+\usepackage{pdflscape}
+
+% Advanced tables
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+
+% Fancy tablerules
+\usepackage{booktabs}
+
+% Graphics
+\usepackage{graphicx}
+
+% Current time
+\usepackage[useregional=numeric]{datetime2}
+
+% Float barriers.
+% Automatically add a FloatBarrier to each \section
+\usepackage[section]{placeins}
+
+% Custom header and footer
+\usepackage{fancyhdr}
+
+\usepackage{geometry}
+\usepackage{layout}
+
+% Math tools
+\usepackage{mathtools}
+% Math symbols
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+% General symbols
+\usepackage{stmaryrd}
+
+% Utilities for quotations
+\usepackage{csquotes}
+
+
+% Bibliography
+\usepackage[
+  style=alphabetic,
+  backend=biber, % Default backend, just listed for completness
+  sorting=ynt % Sort by year, name, title
+]{biblatex}
+\addbibresource{references.bib}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+% Bullet point
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\pagestyle{plain}
+% \fancyhf{}
+% \lhead{}
+% \lfoot{}
+% \rfoot{}
+% 
+% Source code & highlighting
+\usepackage{listings}
+
+% SI units
+\usepackage[binary-units=true]{siunitx}
+\DeclareSIUnit\cycles{cycles}
+
+\newcommand{\lecture}{446538 - Algorithmen in der Algebra}
+\newcommand{\series}{4}
+% Convenience commands
+\newcommand{\mailsubject}{\lecture - Series \series}
+\newcommand{\maillink}[1]{\href{mailto:#1?subject=\mailsubject}
+                               {#1}}
+
+% Should use this command wherever the print date is mentioned.
+\newcommand{\printdate}{\today}
+
+\subject{\lecture}
+\title{Series \series}
+
+\author{Michael Senn \maillink{michael.senn@students.unibe.ch} --- 16-126-880}
+
+\date{\printdate}
+
+% Needs to be the last command in the preamble, for one reason or
+% another. 
+\usepackage{hyperref}
+
+\begin{document}
+\maketitle
+
+
+\setcounter{chapter}{\numexpr \series - 1 \relax}
+
+\chapter{Series \series}
+
+\section{Reducibility of $x^4 + 1$ in $\mathbb{Z}[x]$ and $\mathbb{F}_p[x]$}
+
+\subsection{$x^4 + 1$ is irreducible in $\mathbb{Z}[x]$}
+
+Note first that $x^4 + 1$ has no roots in $\mathbb{Z}[x]$, as there are no
+solutions to $x^4 = 1$ in $\mathbb{Z}$. Thus if $x^4 + 1$ was reducible, it
+would factor into two polynomials of degree two:
+\begin{align*}
+		x^4 + 1 & = (x^2 + ax + b) (x^2 + a'x + b') \\
+				& = x^4 + (a' + a) x^3 + (b' + aa' + b) x^2 + (ab' + ba') x + (bb')
+\end{align*}
+
+This yields four linear equations:
+\begin{align*}
+		a' + a & = 0 && \text{(I)} \\
+		b' + aa' + b & = 0 && \text{(II)} \\
+		ab' + ba' & = 0 && \text{(III)} \\
+		bb' & = 1 && \text{(IV)}
+\end{align*}
+
+Which we can solve:
+\begin{align*}
+		\text{(I)} & \Rightarrow a' = -a && \text{(V)} \\
+		\text{(III)} & \Rightarrow a'b + ab' 
+		               \stackrel{\text{(IV)}}{=} ab' - ab = 0 
+		               \Rightarrow b = b' && \text{(VI)} \\
+		\text{(IV)} & \Rightarrow bb' 
+		               \stackrel{\text{(VI)}}{=} b^2 
+				       \Rightarrow |b| = 1 \\
+		\text{(II)} & \Rightarrow b' + aa' + b 
+		              \stackrel{\text{(VI)}}{=} 2b + aa' 
+					  \stackrel{\text{(V)}}{=} 2b - a^2
+					  \Rightarrow a^2 = 2
+\end{align*}
+
+However $a^2 = 2$ has no solution in $\mathbb{Z}$, so no such factorization can
+exist, thus the polynomial $x^4 + 1$ is irreducible in $\mathbb{Z}[x]$.
+
+\subsection{$x^4 + 1$ is reducible in $\mathbb{F}_p$ for every prime $p$}
+
+For $p = 2$, $(x^2 + 1)^2 = x^4 + 2 x^2 + 1 \equiv x^4 + 1$, so the polynomial
+is reducible. Let now $p$ be an odd prime. We will first prove the following:
+
+\begin{lemma}
+		If $x \in \mathbb{Z}$ is odd, then exactly one of $(x - 1)$, $(x + 1)$
+		is a multiple of four, while the other is a multiple of two but not of
+		four.
+\end{lemma}
+
+\begin{proof}
+		As $x$ is odd, both $x - 1$ as well as $x + 1$ are even. Thus either $x
+		- 1 \equiv 0 \pmod{4}$ or $x - 1 \equiv 2 \pmod{4}$. If $x - 1 \equiv 0
+		\pmod{4}$ then $x + 1 = x - 1 + 2 \equiv 0 + 2 = 2 \pmod{4}$. Similarly
+		if $x - 1 \equiv 2 \pmod{4}$ then $x + 1 \equiv 0 \pmod{4}$.
+\end{proof}
+
+Now consider the multiplicative group of the field $\mathbb{F}_{p^2}$. As $p$
+is prime, this group's order is $p^2 - 1 = (p - 1) (p + 1)$. As seen above we
+know that $(p^2 - 1) \equiv 0 \pmod{8}$. Since this group is finite cyclic,
+there exists an element $\alpha$ of order $8$. (Indeed if $g$ generates the
+whole group, then $g^\frac{p^2 - 1}{8}$ will be such an element).
+
+Then, $\alpha$ will be a root of the polynomial $x^8 - 1 = (x^4 - 1)(x^4 + 1)$.
+It will also be a root of $x^4 + 1$ but not of $x^4 - 1$, as that one's roots
+will have an order dividing four. Thus $\mathbb{F}_{p^2}$ is the splitting
+field of $x^4 + 1$ over $\mathbb{F}_p$. 
+
+Now, if $x^4 + 1$ was irreducible, then $4 | [\mathbb{F}_{p^2} /
+\mathbb{F}_p]$. However due to the multiplicativity of degrees of field
+extensions we know that $[\mathbb{F}_{p^2} / \mathbb{F}_p] = 2$, which is a
+contradiction. Hence, $x^4 + 1$ is reducible in $\mathbb{F}_p$.
+
+\section{Computational complexity of ``FaktorI'' algorithm is not polynomial in degree of polynomial}
+
+Given a polynomial $f$ of degree $n$, then the factorization in $GF(p)$ for $p$
+prime using Berlekamp might return up to $n$ linear factors $f = g_1 g_2 \ldots
+g_n \mod{p}$. But then there are $O(2^n)$ subsets $I$ of indices of
+$\tilde{g}_i$ such that the sum of their degrees does not exceed $\lfloor n/2
+\rfloor$.
+
+If the polynomial happens to be irreducible over $\mathbb{Z}$, then all of
+these possible subsets must be enumerated, leading to an exponential runtime
+complexity.
+
+\printbibliography{}
+
+\end{document}
