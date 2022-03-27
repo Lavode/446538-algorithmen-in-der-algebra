@@ -14,6 +14,8 @@
 % Sub figures
 \usepackage{subcaption}
 
+\usepackage{algpseudocode}
+
 % Quotations
 \usepackage{dirtytalk}
 
@@ -68,6 +70,7 @@
 
 % Utilities for quotations
 \usepackage{csquotes}
+
 
 % Bibliography
 \usepackage[
@@ -125,7 +128,86 @@
 
 \chapter{Series \series}
 
-\section{Extended euclidean algorithm}
+\section{Extended binary euclidean algorithm}
+
+We intend to extend the presented binary euclidean algorithm shown in the
+lecture, to also produce the coefficients of Bézout's identity, that is to find
+integers $x, y$ such that:
+\[
+		xa + yb = gcd(a, b)
+\]
+
+The following is an incomplete (and rather WIP) approach to the problem, based
+on an algorithm presented in algorithm 14.61 of the handbook of applied
+cryptography \autocite{menezesHandbookAppliedCryptography1997}. It includes
+only those parts I fully understood in the time spent on the exercise.
+
+\subsection{Extracting common factors of two at the very beginning}
+
+First note that removing common powers of two can be done at the very
+beginning. Consider the following at the very beginning of the presented
+algorithm:
+
+\begin{algorithmic}
+ 	\State $k = 1$
+
+ 	\While{$a, b$ even}
+ 			\State $a = a / 2$
+ 			\State $b = b / 2$
+ 			\State $k = k * 2$
+ 	\EndWhile
+\end{algorithmic}
+
+As seen in the lecture, $gcd(a, b) = 2^k \cdot gcd(a / 2^k, b / 2^k)$, so this
+does not affect the resulting GCD as long as the factor of $2^k$ is multiplied
+back at the end. Similarly, if $xa + yb = gcd(a, b)$ then $xa / 2^k + yb / 2^k
+= 2^{-k} (xa + yb) = 2^{-k} gcd(a, b)$ so pulling out a common factor $2^k$
+does not affect the coefficients of Bézout's identity either.
+
+This simplifies the main loop, as at most one of $a$ or $b$ can be even in that
+case.
+
+\subsection{Main loop}
+
+We now introduce four auxilliary variables $p_i, q_i, r_i, s_i$ with $p_1, q_1,
+r_1, s_1 = 1, 0, 0, 1$. Further let $u_1, v_1 = a, b$. Our invariant will be
+that, at the end of each loop $i$, the following holds:
+\begin{align*}
+		p_i \cdot a + q_i \cdot b = u_i \\
+		r_i \cdot a + s_i \cdot b = v_i
+\end{align*}
+
+Clearly for the first iteration $i = 1$ this holds as $p_1 \cdot a + q_1 \cdot
+b = a = u_1$, and $r_1 \cdot a + s_1 \cdot b = b = v_1$.
+
+The main loop will then iterate until $u_i = 0$. The cases handled within
+are as follows:
+
+\subsubsection{If $u_i$ even, $v_i$ odd, $p_i, q_i$ even}
+
+As in the lecture, let $u_{i+1} = u_i / 2$. Further let $p_{i+1} = p_{i} / 2$
+and $q_{i+1} = q_{i} / 2$ and $r_{i+1} = r_i, s_{i+1} = s_i$. Then:
+\begin{align*}
+		p_{i+1} a + q_{i+1} b & = \frac{p_i}{2} a + \frac{q_i}{2} b \\
+							  & = \frac{1}{2} (p_i a + q_i b) \\
+							  & = \frac{1}{2} u_i \\
+							  & = u_{i+1}
+\end{align*}
+
+so both invariants hold.
+
+\subsubsection{If $v_i$ even, $u_i$ odd, $r_i, s_i$ even}
+
+As in the lecture, let $v_{i+1} = v_i / 2$. Further let $r_{i+1} = r_{i} / 2$
+and $s_{i+1} = s_{i} / 2$ and $p_{i+1} = p_i$ and $q_{i+1} = q_i$. Then:
+\begin{align*}
+		r_{i+1} a + s_{i+1} b & = \frac{r_i}{2} a + \frac{s_i}{2} b \\
+							  & = \frac{1}{2} (r_i a + s_i b) \\
+							  & = \frac{1}{2} v_i \\
+							  & = v_{i+1}
+\end{align*}
+
+so both invariants hold.
 
 \section{Solving $x^2 = 1$ in ring of integers modulo $n = pq$}
 
@@ -171,8 +253,10 @@ where $a_1$ is the residue $\bmod p$, $a_2$ the residue $\bmod q$. Thus:
 
 Which are the four solutions to $x^2 = 1$ in $\mathbb{Z} / pq \mathbb{Z}$.
 
-\section{Implementation of ffficient modular exponentiation and Miller-Rabin primality test}
+\section{Implementation of efficient modular exponentiation and Miller-Rabin primality test}
 
 Handed in separately.
+
+\printbibliography{}
 
 \end{document}
