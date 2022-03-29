@@ -154,7 +154,7 @@ Lastly by the rank nullity theorem we know that $\dim \mathbb{Z}^n = \dim Im(A)
 + \dim Ker(A)$, so the dimension of the lattice is given as $\dim Ker(A) = \dim
 \mathbb{Z}^n - \dim Im(A) = n - \dim Im(A)$.
 
-\section{Kernel of $A \in \mathbb{Z}^{m \times n}$ is a lattice in $(\mathbb{Z} / N\mathbb{Z})^m$}
+\section{Kernel of $A \in \mathbb{Z}^{m \times n} \bmod N$ is a lattice}
 
 Let $A \in \mathbb{Z}_{m \times n}$ be an $m \times n$ matrix over $\mathbb{Z}$
 and $N$ be a strictly positive integer. Let $X \coloneqq \{x \in \mathbb{Z}^n :
@@ -172,15 +172,13 @@ $\mathbb{Z}$ is discrete (with e.g. $U = (x - 1/2, x + 1/2)$ for ever $x \in
 \mathbb{Z}$), so $\mathbb{Z}^n$ is too, and hence so is $X \subset
 \mathbb{Z}^n$. Thus, $(X, +)$ is a lattice in $R^n$.
 
-Let now $x_1 \in \mathbb{Z}^n$ such that $Ax_1 = (0)^n$.  Consider the vectors
-$x_i$ resulting from adding $i \cdot N$ to the first coordinate of $x_1$ for $2
+Let now $x_1 \in \mathbb{Z}^n$ be a non-zero element of the lattice, such that
+$Ax_1 = (0)^n$.  Consider the vectors $x_i$ resulting from adding $i \cdot N$
+to the first coordinate of $x_1$ for $2
 \leq i \leq n$. Then:
 \begin{align*}
 		A x_i & = A x_0 + A \begin{pmatrix}
-				0 \\
-				\vdots \\
-				0 \\
-				i \cdot N \text{ (i-th coordinate)} \\
+				i \cdot N \\
 				0 \\
 				\vdots \\
 				0
