@@ -138,30 +138,29 @@ variable. Let $M = \{1, x^1, x^2, \ldots\}$ be the set of all monomials in one
 variable. Let $M_i \coloneqq \{x^i, x^{i+1}, \ldots \}$ be $M$ exlcuding
 monomials of order less than $i$.
 
-First note that, for any monomial order $\leq$, $1$ is the minimal element of
-$M$. To see this assume that a different element $x^a \in M$ was the minimal
+First note that, for any monomial order $\leq$, $1$ is the least element of
+$M$. To see this assume that a different element $x^a \in M$ was the least
 element. But then $x^a \leq 1$, so $x^{(k+1)a} \leq x^{ka}$ for all $k \in
-\mathbb{N}$, so $M$ would not have a minimal element, so $\leq$ would not be a
+\mathbb{N}$, so $M$ would not have a least element, so $\leq$ would not be a
 well-order.
 
-As above note that, for any monomial order $\leq$, $x^n$ is the minimal element
+As above note that, for any monomial order $\leq$, $x^n$ is the least element
 of $M_n$. Assume that instead a diferent element $x^a \in M_n, a > n$ was the
-minimal element. But then $x^{2a} \leq x^{a + n}$, yet $a > n \Rightarrow 2a >
-a+n$, so again $\leq$ would not have a minimal element in $M_n$.
+least element. But then $x^{2a} \leq x^{a + n}$, yet $a > n \Rightarrow 2a >
+a+n$, so again $\leq$ would not have a least element in $M_n$.
 
-Thus for any monomial order $\leq$, $x^0$ is the minimal element in $M$, $x^1$
+Thus for any monomial order $\leq$, $x^0$ is the least element in $M$, $x^1$
 in $M \setminus\{x^0\}$, $x^n$ in $M \setminus \{x^0, x^1, \ldots, x^{n-1}\}$ and
 so on. Thus there is only one monomial order in one variable.
 
 \section{Example of a monomial order}
 
-Consider the monomial order in two variables defined by:
+Let $M$ be the set of monomials in two variables. Let $x_1^a x_2^b, x_1^c
+x_2^d, x_1^e x_1^f \in M$. Consider the binary relation $\leq$ over $M$,
+defined by:
 \[
 		x_1^a x_2^b \leq x_1^c x_2^d \Leftrightarrow a + b \sqrt{2} \leq c + d \sqrt{2}
 \]
-
-Let $M$ be the set of monomials in two variables. Let $x_1^a x_2^b, x_1^c
-x_2^d, x_1^e x_1^f \in M$.
 
 \subsection{$\leq$ defines a total order}
 
@@ -190,15 +189,15 @@ order is total.
 
 \subsection{$\leq$ defines a well-order}
 
-As seen above, $x \sqrt{2}$ for $x \in \mathbb{N}$ is always an irrational
-number. Thus, two elements $a + b \sqrt{2}$, $c + d \sqrt{2}$ will be equal if
-and only if $a = c \land b = d$.
+As above, $x \sqrt{2}$ for $x \in \mathbb{N}$ is always irrational. Thus, two
+elements $a + b \sqrt{2}$, $c + d \sqrt{2}$ will be equal if and only if $a = c
+\land b = d$.
 
 Let $M' \subset M$ be a non-empty subset. Consider the set $A \coloneqq \{a + b
 \sqrt{2} : x_1^a x_2^b \in M'\}$. $A$ is a subset of the reals with no
 duplicate elements, so the standard total order on the reals ensures existence
-of a unique minimal element $a + b \sqrt{2} \in A$. Then $x_1^a x_2^b \in M'$
-is the unique minimal element of $M'$, so $\leq$ is a well-order.
+of a unique least element $a + b \sqrt{2} \in A$. Then $x_1^a x_2^b \in M'$
+is the unique least element of $M'$, so $\leq$ is a well-order.
 
 \subsection{$\leq$ defines a monomial order}
 
@@ -221,6 +220,38 @@ So:
 So $\leq$ is a monomial order.
 
 \section{Non-examples of monomial orders}
+
+Let $M$ be the set of monomials in two variables. Let $x_1^a x_2^b, x_1^c
+x_2^d, x_1^e x_1^f \in M$.
+
+\subsection{Not a well-order}
+
+Consider the binary relation $\leq$ over $M$, defined by:
+\[
+		x_1^a x_2^b \leq x_1^c x_2^d \Leftrightarrow a - b \sqrt{2} \leq c - d \sqrt{2}
+\]
+
+Note that $(-n \sqrt{2})_{n \in \mathbb{N}}$ is monotonically decreasing and
+divergent, so the set $\{-n \sqrt{2} : n \in \mathbb{N}\} \subset \mathbb{R}$
+has no least element with the usual total order over the reals. As such the
+binary relation above is no well-order, and thus also no monomial order.
+
+\subsection{Not antisymmetric}
+
+
+Consider the binary relation $\leq$ over $M$, defined by:
+\[
+		x_1^a x_2^b \leq x_1^c x_2^d \Leftrightarrow a + b \frac{17}{433} \leq c + d \frac{17}{433}
+\]
+
+Let $u \coloneqq x_1^0 x_2^{433}, v \coloneqq x_1^{17} x_2^0 \in M$. Clearly $u \neq v$, yet:
+\begin{align*}
+		0 + 433 \frac{17}{433} = 17 = 17 + 0 \frac{17}{433} \\
+		\Rightarrow u \leq v \land v \leq u
+\end{align*}
+
+So the relation is not antisymmetric, and thus also no monomial order.
+
 
 \section{Monomial orders in two variables}
 
