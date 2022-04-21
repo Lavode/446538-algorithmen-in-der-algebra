@@ -154,6 +154,7 @@ in $M \setminus\{x^0\}$, $x^n$ in $M \setminus \{x^0, x^1, \ldots, x^{n-1}\}$ an
 so on. Thus there is only one monomial order in one variable.
 
 \section{Example of a monomial order}
+\label{sec:monomial_order}
 
 Let $M$ be the set of monomials in two variables. Let $x_1^a x_2^b, x_1^c
 x_2^d, x_1^e x_1^f \in M$. Consider the binary relation $\leq$ over $M$,
@@ -254,6 +255,20 @@ So the relation is not antisymmetric, and thus also no monomial order.
 
 
 \section{Monomial orders in two variables}
+
+Consider the binary relation $\leq_r$ on the set of monomials in two variables
+$M$, defined by:
+
+\[
+		x_1^a x_2^b \leq x_1^c x_2^d \Leftrightarrow a + br \leq c + dr
+\]
+
+Where $r$ is a positive irrational number. Each of these binary relations
+$\leq_r$ can be shown to define a monomial order by following the proof for $r
+= \sqrt{2}$ in section \ref{sec:monomial_order}.
+
+As the set of positive irrational number is uncountably infinite, there are
+thus also an uncountably infinite amount of monomial orders in two variables.
 
 \printbibliography{}
 
