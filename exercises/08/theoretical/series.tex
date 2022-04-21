@@ -1,0 +1,229 @@
+\documentclass[a4paper]{scrreprt}
+
+% Uncomment to optimize for double-sided printing.
+% \KOMAoptions{twoside}
+
+% Set binding correction manually, if known.
+% \KOMAoptions{BCOR=2cm}
+
+% Localization options
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% Sub figures
+\usepackage{subcaption}
+
+\usepackage{algpseudocode}
+
+% Quotations
+\usepackage{dirtytalk}
+
+% Floats
+\usepackage{float}
+
+% Enhanced verbatim sections. We're mainly interested in
+% \verbatiminput though.
+\usepackage{verbatim}
+
+% Automatically remove leading whitespace in lstlisting
+\usepackage{lstautogobble}
+
+% CSV to tables
+\usepackage{csvsimple}
+
+% PDF-compatible landscape mode.
+% Makes PDF viewers show the page rotated by 90°.
+\usepackage{pdflscape}
+
+% Advanced tables
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+
+% Fancy tablerules
+\usepackage{booktabs}
+
+% Graphics
+\usepackage{graphicx}
+
+% Current time
+\usepackage[useregional=numeric]{datetime2}
+
+% Float barriers.
+% Automatically add a FloatBarrier to each \section
+\usepackage[section]{placeins}
+
+% Custom header and footer
+\usepackage{fancyhdr}
+
+\usepackage{geometry}
+\usepackage{layout}
+
+% Math tools
+\usepackage{mathtools}
+% Math symbols
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsthm}
+% General symbols
+\usepackage{stmaryrd}
+
+% Utilities for quotations
+\usepackage{csquotes}
+
+
+% Bibliography
+\usepackage[
+  style=alphabetic,
+  backend=biber, % Default backend, just listed for completness
+  sorting=ynt % Sort by year, name, title
+]{biblatex}
+\addbibresource{references.bib}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+% Bullet point
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\pagestyle{plain}
+% \fancyhf{}
+% \lhead{}
+% \lfoot{}
+% \rfoot{}
+% 
+% Source code & highlighting
+\usepackage{listings}
+
+% SI units
+\usepackage[binary-units=true]{siunitx}
+\DeclareSIUnit\cycles{cycles}
+
+\newcommand{\lecture}{446538 - Algorithmen in der Algebra}
+\newcommand{\series}{8}
+% Convenience commands
+\newcommand{\mailsubject}{\lecture - Series \series}
+\newcommand{\maillink}[1]{\href{mailto:#1?subject=\mailsubject}
+                               {#1}}
+
+% Should use this command wherever the print date is mentioned.
+\newcommand{\printdate}{\today}
+
+\subject{\lecture}
+\title{Series \series}
+
+\author{Michael Senn \maillink{michael.senn@students.unibe.ch} --- 16-126-880}
+
+\date{\printdate}
+
+% Needs to be the last command in the preamble, for one reason or
+% another. 
+\usepackage{hyperref}
+
+\begin{document}
+\maketitle
+
+
+\setcounter{chapter}{\numexpr \series - 1 \relax}
+
+\chapter{Series \series}
+
+\section{Uniqueness of monomial order in one variable}
+
+We aim to show that there is only one distinct monomial order in one
+variable. Let $M = \{1, x^1, x^2, \ldots\}$ be the set of all monomials in one
+variable. Let $M_i \coloneqq \{x^i, x^{i+1}, \ldots \}$ be $M$ exlcuding
+monomials of order less than $i$.
+
+First note that, for any monomial order $\leq$, $1$ is the minimal element of
+$M$. To see this assume that a different element $x^a \in M$ was the minimal
+element. But then $x^a \leq 1$, so $x^{(k+1)a} \leq x^{ka}$ for all $k \in
+\mathbb{N}$, so $M$ would not have a minimal element, so $\leq$ would not be a
+well-order.
+
+As above note that, for any monomial order $\leq$, $x^n$ is the minimal element
+of $M_n$. Assume that instead a diferent element $x^a \in M_n, a > n$ was the
+minimal element. But then $x^{2a} \leq x^{a + n}$, yet $a > n \Rightarrow 2a >
+a+n$, so again $\leq$ would not have a minimal element in $M_n$.
+
+Thus for any monomial order $\leq$, $x^0$ is the minimal element in $M$, $x^1$
+in $M \setminus\{x^0\}$, $x^n$ in $M \setminus \{x^0, x^1, \ldots, x^{n-1}\}$ and
+so on. Thus there is only one monomial order in one variable.
+
+\section{Example of a monomial order}
+
+Consider the monomial order in two variables defined by:
+\[
+		x_1^a x_2^b \leq x_1^c x_2^d \Leftrightarrow a + b \sqrt{2} \leq c + d \sqrt{2}
+\]
+
+Let $M$ be the set of monomials in two variables. Let $x_1^a x_2^b, x_1^c
+x_2^d, x_1^e x_1^f \in M$.
+
+\subsection{$\leq$ defines a total order}
+
+\subsubsection{$\leq$ is reflexive}
+
+$a + b \sqrt{2} \leq a + b \sqrt{2}$, so $\leq$ is reflexive.
+
+\subsubsection{$\leq$ is transitive}
+
+Assume $x_1^a x_1^b \leq x_1^c x_2^d$ and $x_1^c x_2^d \leq x_1^e x_2^f$. Thus
+$a + b \sqrt{2} \leq c + d \sqrt{2}$ and $c + d \sqrt{2} \leq e + f \sqrt{2}$.
+Then $a + b \sqrt{2} \leq e + f \sqrt{2}$ so $\leq$ is transitive.
+
+\subsubsection{$\leq$ is antisymmetric}
+
+Assume $x_1^a x_2^b \leq x_1^c x_2^d$ and $x_1^c x_2^d \leq x_1^a x_2^b$. Thus
+$a + b \sqrt{2} \leq c + d \sqrt{2} \leq a + b \sqrt{2}$. Note that $\sqrt{2}$
+is irrational, so $x \sqrt{2}, x \in \mathbb{N}$ is irrational too. Thus $a = c
+\land b = d$ so $\leq$ is antisymmetric.
+
+\subsubsection{$\leq$ is total}
+
+Lastly for all $a, b, c, d \in \mathbb{N}$, the comparison $a + b \sqrt{2}
+\overset{?}{\leq} c + d \sqrt{2}$ is meaningful (in e.g. $\mathbb{R}$), so the
+order is total.
+
+\subsection{$\leq$ defines a well-order}
+
+As seen above, $x \sqrt{2}$ for $x \in \mathbb{N}$ is always an irrational
+number. Thus, two elements $a + b \sqrt{2}$, $c + d \sqrt{2}$ will be equal if
+and only if $a = c \land b = d$.
+
+Let $M' \subset M$ be a non-empty subset. Consider the set $A \coloneqq \{a + b
+\sqrt{2} : x_1^a x_2^b \in M'\}$. $A$ is a subset of the reals with no
+duplicate elements, so the standard total order on the reals ensures existence
+of a unique minimal element $a + b \sqrt{2} \in A$. Then $x_1^a x_2^b \in M'$
+is the unique minimal element of $M'$, so $\leq$ is a well-order.
+
+\subsection{$\leq$ defines a monomial order}
+
+Let $a, b, c, d, e, f \in \mathbb{N}$ with $a + b \sqrt{2} \leq c + d
+\sqrt{2}$. Then:
+
+\begin{align*}
+		(a + e) + (b + d) \sqrt{2} & = (a + b \sqrt{2}) + (e + f \sqrt{2}) \\
+								   & \leq (c + d \sqrt{2}) + (e + f \sqrt{2}) \\
+								   & = (c + e) + (d + f) \sqrt{2}
+\end{align*}
+
+So:
+\begin{align*}
+		x_1^a x_2^b x_1^e x_2^f & = x_1^{a+e} x_2^{b+f} \\
+								& \leq x_1^{c+e} x_2^{d+f} \\
+								& = x_1^c x_2^d x_1^e x_2^f
+\end{align*}
+
+So $\leq$ is a monomial order.
+
+\section{Non-examples of monomial orders}
+
+\section{Monomial orders in two variables}
+
+\printbibliography{}
+
+\end{document}
