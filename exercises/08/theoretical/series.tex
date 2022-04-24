@@ -133,25 +133,24 @@
 
 \section{Uniqueness of monomial order in one variable}
 
-We aim to show that there is only one distinct monomial order in one
-variable. Let $M = \{1, x^1, x^2, \ldots\}$ be the set of all monomials in one
-variable. Let $M_i \coloneqq \{x^i, x^{i+1}, \ldots \}$ be $M$ exlcuding
-monomials of order less than $i$.
+Let $M = \{1, x^1, x^2, \ldots\}$ be the set of all monomials in one variable.
+Let $(M_i)_{i \in \mathbb{N}} \coloneqq \{x^i, x^{i+1}, \ldots \}$ be the
+subset of $M$ exlcuding monomials of order less than $i$.
 
-First note that, for any monomial order $\leq$, $1$ is the least element of
-$M$. To see this assume that a different element $x^a \in M$ was the least
+First note that, for any monomial order $\leq$ on $M$, $1$ is the least element
+of $M$. To see this assume that a different element $x^a \in M$ was the least
 element. But then $x^a \leq 1$, so $x^{(k+1)a} \leq x^{ka}$ for all $k \in
 \mathbb{N}$, so $M$ would not have a least element, so $\leq$ would not be a
 well-order.
 
-As above note that, for any monomial order $\leq$, $x^n$ is the least element
-of $M_n$. Assume that instead a diferent element $x^a \in M_n, a > n$ was the
-least element. But then $x^{2a} \leq x^{a + n}$, yet $a > n \Rightarrow 2a >
-a+n$, so again $\leq$ would not have a least element in $M_n$.
+Now note that, for any monomial order $\leq$ on $M_n$, $x^n$ is the least
+element of $M_n$. Assume that instead a diferent element $x^a \in M_n, a > n$
+was the least element. But then $x^{2a} \leq x^{a + n}$, yet $a > n \Rightarrow
+2a > a+n$, so again $\leq$ would not have a least element in $M_n$.
 
 Thus for any monomial order $\leq$, $x^0$ is the least element in $M$, $x^1$
 in $M \setminus\{x^0\}$, $x^n$ in $M \setminus \{x^0, x^1, \ldots, x^{n-1}\}$ and
-so on. Thus there is only one monomial order in one variable.
+so on. So there is only one monomial order in one variable.
 
 \section{Example of a monomial order}
 \label{sec:monomial_order}
@@ -165,30 +164,30 @@ defined by:
 
 \subsection{$\leq$ defines a total order}
 
-\subsubsection{$\leq$ is reflexive}
+\subsubsection{Reflexivity}
 
 $a + b \sqrt{2} \leq a + b \sqrt{2}$, so $\leq$ is reflexive.
 
-\subsubsection{$\leq$ is transitive}
+\subsubsection{Transitivity}
 
 Assume $x_1^a x_1^b \leq x_1^c x_2^d$ and $x_1^c x_2^d \leq x_1^e x_2^f$. Thus
 $a + b \sqrt{2} \leq c + d \sqrt{2}$ and $c + d \sqrt{2} \leq e + f \sqrt{2}$.
 Then $a + b \sqrt{2} \leq e + f \sqrt{2}$ so $\leq$ is transitive.
 
-\subsubsection{$\leq$ is antisymmetric}
+\subsubsection{Antisymmetry}
 
 Assume $x_1^a x_2^b \leq x_1^c x_2^d$ and $x_1^c x_2^d \leq x_1^a x_2^b$. Thus
 $a + b \sqrt{2} \leq c + d \sqrt{2} \leq a + b \sqrt{2}$. Note that $\sqrt{2}$
-is irrational, so $x \sqrt{2}, x \in \mathbb{N}$ is irrational too. Thus $a = c
-\land b = d$ so $\leq$ is antisymmetric.
+is irrational, so $x \sqrt{2}, x \in \mathbb{N}$ is irrational too. If follows
+that $a = c \land b = d$ so $\leq$ is antisymmetric.
 
-\subsubsection{$\leq$ is total}
+\subsubsection{Totality}
 
 Lastly for all $a, b, c, d \in \mathbb{N}$, the comparison $a + b \sqrt{2}
 \overset{?}{\leq} c + d \sqrt{2}$ is meaningful (in e.g. $\mathbb{R}$), so the
 order is total.
 
-\subsection{$\leq$ defines a well-order}
+\subsection{Well-order}
 
 As above, $x \sqrt{2}$ for $x \in \mathbb{N}$ is always irrational. Thus, two
 elements $a + b \sqrt{2}$, $c + d \sqrt{2}$ will be equal if and only if $a = c
@@ -200,7 +199,7 @@ duplicate elements, so the standard total order on the reals ensures existence
 of a unique least element $a + b \sqrt{2} \in A$. Then $x_1^a x_2^b \in M'$
 is the unique least element of $M'$, so $\leq$ is a well-order.
 
-\subsection{$\leq$ defines a monomial order}
+\subsection{Monomial order}
 
 Let $a, b, c, d, e, f \in \mathbb{N}$ with $a + b \sqrt{2} \leq c + d
 \sqrt{2}$. Then:
@@ -256,19 +255,37 @@ So the relation is not antisymmetric, and thus also no monomial order.
 
 \section{Monomial orders in two variables}
 
-Consider the binary relation $\leq_r$ on the set of monomials in two variables
-$M$, defined by:
+Let be a positive irrational number. Consider the binary relation $\leq_r$ on
+the set of monomials in two variables $M$, defined by:
 
 \[
 		x_1^a x_2^b \leq x_1^c x_2^d \Leftrightarrow a + br \leq c + dr
 \]
 
-Where $r$ is a positive irrational number. Each of these binary relations
-$\leq_r$ can be shown to define a monomial order by following the proof for $r
-= \sqrt{2}$ in section \ref{sec:monomial_order}.
+Each of these binary relations $\leq_r$ can be shown to define a monomial order
+by generalizing the proof for $r = \sqrt{2}$ in section \ref{sec:monomial_order}.
 
 As the set of positive irrational number is uncountably infinite, there are
-thus also an uncountably infinite amount of monomial orders in two variables.
+also an uncountably infinite number of monomial orders in two variables.
+
+\section{Complexity of algorithm for division of multivariate polynomials}
+
+Consider the algorithm presented in the lecture. Let $k$ be the number of
+divisors $h_1, \ldots, h_k$. Let $f$ be the dividend. Let $N$ be the maximum
+number of terms in either of the $h_i$ or of $f$.
+
+In each iteration of the loop we must --- at most --- consider each pair $(h_i,
+c x^\alpha)$, where $c x^\alpha$ is a term of $f$, to find out whether there
+exists an $h_i$ such that $LM(h_i) | x^\alpha$. There are at most $kN$ such pairs.
+
+Further as was shown, the number of monomials in the remainder $r$ is strictly
+decreasing inbetween any two iterations, ensuring that the algorithm
+terminates. As such there are at most $N$ total iterations.
+
+Thus the runtime of the algorithm is indeed polynomial in $kN$. The specific
+monomial order may influence the exact complexity insofar as it influences
+which divisions take place, but will not affect the asymptotical complexity.
+
 
 \printbibliography{}
 
