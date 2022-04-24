@@ -278,14 +278,14 @@ In each iteration of the loop we must --- at most --- consider each pair $(h_i,
 c x^\alpha)$, where $c x^\alpha$ is a term of $f$, to find out whether there
 exists an $h_i$ such that $LM(h_i) | x^\alpha$. There are at most $kN$ such pairs.
 
-Further as was shown, the number of monomials in the remainder $r$ is strictly
-decreasing inbetween any two iterations, ensuring that the algorithm
-terminates. As such there are at most $N$ total iterations.
+Every iteration of the algorithm, the order of one term of the remainder will
+be decreasing. With $s$ the maximum order of any term of $f$, there are hence
+at most $Ns$ iterations in total.
 
-Thus the runtime of the algorithm is indeed polynomial in $kN$. The specific
+Thus the runtime of the algorithm is indeed in $kN$ if the maximum order of $f$
+is taken as a constant. Otherwise it will be polynomial in $kNs$. The specific
 monomial order may influence the exact complexity insofar as it influences
 which divisions take place, but will not affect the asymptotical complexity.
-
 
 \printbibliography{}
 
